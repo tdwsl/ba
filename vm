@@ -1,0 +1,42 @@
+So, I was thinking a stack machine, but maybe not;
+in a typeless language, I feel it is reasonable to expect the wrong number of
+arguments to a function.
+Then again, it would only spoil the calleee function, then the stack frame is
+popped, so actually it might be okay.
+Okay, never mind then.
+
+Just a note, this VM is single-stack, 32-bit and highly-indirect. That is,
+each function is called by a global variable, not its address.
+
+Instruction format 1:
+
+iii x xxxx  <#### ####>
+
+0 - jmp x#
+1 - jz x#
+2 - im x
+3 - adrl x
+4 - adrg x#
+5 - callg x#
+6 - ret x
+7 - ...
+
+about adrl/im: uses signed 5 bit value
+about call: pushes ra and bp, sets bp to sp
+
+Instruction format 2:
+
+111 i iiii  <#### ####, ...>
+
+0  - imb #	1  - imh ##	2  - imw ####	3  - alloc #
+4  - sp 	5  - sys	6  - neg	7  - not
+8  - setr	9  - getr	10 - callt	11 - dup
+12 - add	13 - add4	14 - sub	15 - and
+16 - or 	17 - xor	18 - shl	19 - shr
+20 - mul	21 - div	22 - rem	23 - eq
+24 - lt 	25 - gt 	26 - stw	27 - ldw
+28 - stb	29 - ldb	30 - ifdup	31 - ---
+
+about shr/shl: it's unsigned, unlike mul/div/mod
+about stw/b: works dst src ! instead of src dst !
+

@@ -1,0 +1,8 @@
+Like B, but...
+- High degree of indirection, even for functions: every global is a pointer in
+  text/data (idk if B did this). Before compiling each function, every
+  undefined global is allocated a reference.
+- $[ for indexing/dimensioning byte arrays, e.g. auto a$[40], a$[10] = 17.
+- Support for static keyword.
+- C-style operators, += instead of =+ .
+
